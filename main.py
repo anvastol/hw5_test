@@ -7,7 +7,8 @@ app = FastAPI()
 class Item(BaseModel):
     text: str
 
-pipe = pipeline("translation", model="Helsinki-NLP/opus-mt-en-de")
+translate=pipeline("translation_ru_to_fr", model = "Helsinki-NLP/opus-mt-ru-fr")
+
 @app.post("/predict/")
 async def predict(item:Item):
-    return pipe(item.text)[0]
+    return translate(item.text)[0]
